@@ -10,90 +10,80 @@ const porta = 3000;
 const host = 'localhost';
 
 var listaClientes = [];
-function cadastroClienteView(req, resp) {
+function cadastroProdutoView(req, resp) {
     resp.send(`
-            <html> 
-     <head>
-                <title> Cadastro </title>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    </head>
-    <body>  
-    <div class="container text-center">
-                        <h1 class="mb-5">Cadastro</h1>
-                        <form method="POST" action="/cadastrarCliente" class="border p-3 row g-3" novalidate>
-                            <div class="col-md-4">
-                                <label for="nome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome"  placeholder="Digite seu nome">
-                             </div>
-                             <div class="col-md-4">
-                                <label for="sobrenome" class="form-label">Sobrenome</label>
-                                <input type="text" class="form-control" id="sobrenome" name="sobrenome">
-    
-                             </div>
-                             <div class="col-md-4">
-                                <label for="CPF" class="form-label">CPF</label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="inputGroupPrepend"></span>
-                                    <input type="text" class="form-control" id="CPF" name="CPF">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="endereço" class="form-label">Endereço</label>
-                                  <input type="text" class="form-control" id="endereço" name="endereço">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="estado" class="form-label">UF</label>
-                                <select class="form-select" id="estado" name="estado">
-                                    <option selected value="SP">São Paulo</option>
-                                    <option value="AC">Acre</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="AP">Amapá</option>
-                                    <option value="AM">Amazonas</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espírito Santo</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="MT">Mato Grosso</option>
-                                    <option value="MS">Mato Grosso do Sul</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PR">Paraná</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="RJ">Rio de Janeiro</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                    <option value="RO">Rondônia</option>
-                                    <option value="RR">Roraima</option>
-                                    <option value="SC">Santa Catarina</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="TO">Tocantins</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="numero" class="form-label">Numero</label>
-                                <input type="text" class="form-control" id="cep" name="numero">
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary" type="submit">Cadastrar</button>
-                            </div>
-                            </form>
-                    </div>
-
-    </body>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </html>
+                <!DOCTYPE html>
+                <html lang="pt-br">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Página Principal</title>
+                </head>
+                <body>
+                    <h2>Bem-vindo ao Sistema de Cadastro de Produtos</h2>
+                    <p>Último Acesso: <span>{{lastLogin}}</span></p>
+                
+                    <h3>Cadastrar Produto</h3>
+                    <form action="/cadastro" method="POST">
+                        <label for="codigo">Código de Barras:</label>
+                        <input type="text" id="codigo" name="codigo" required><br>
+                
+                        <label for="descricao">Descrição:</label>
+                        <input type="text" id="descricao" name="descricao" required><br>
+                
+                        <label for="preco_custo">Preço de Custo:</label>
+                        <input type="text" id="preco_custo" name="preco_custo" required><br>
+                
+                        <label for="preco_venda">Preço de Venda:</label>
+                        <input type="text" id="preco_venda" name="preco_venda" required><br>
+                
+                        <label for="validade">Data de Validade:</label>
+                        <input type="date" id="validade" name="validade" required><br>
+                
+                        <label for="estoque">Estoque:</label>
+                        <input type="number" id="estoque" name="estoque" required><br>
+                
+                        <label for="fabricante">Fabricante:</label>
+                        <input type="text" id="fabricante" name="fabricante" required><br>
+                
+                        <button type="submit">Cadastrar Produto</button>
+                    </form>
+                
+                    <h3>Produtos Cadastrados</h3>
+                    <table border="1">
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Preço de Custo</th>
+                            <th>Preço de Venda</th>
+                            <th>Validade</th>
+                            <th>Estoque</th>
+                            <th>Fabricante</th>
+                        </tr>
+                        {{#each products}}
+                        <tr>
+                            <td>{{this.codigo}}</td>
+                            <td>{{this.descricao}}</td>
+                            <td>{{this.preco_custo}}</td>
+                            <td>{{this.preco_venda}}</td>
+                            <td>{{this.validade}}</td>
+                            <td>{{this.estoque}}</td>
+                            <td>{{this.fabricante}}</td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                </body>
+                </html>
+                
     `);
 }
 
 function menuView(req, resp){
     resp.send(`
+    
         <html>
             <head>
-                <title>Cadastro de Alunos</title>
+                <title>Cadastro de AProdutos</title>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
             </head>
             <body>
@@ -108,26 +98,26 @@ function menuView(req, resp){
                     </div>
                 </nav>
             </body>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         </html>
         `);
 }
 
-function cadastrarCliente(req, resp){
-    const nome      = req.body.nome;
-    const sobrenome = req.body.sobrenome;
-    const  CPF     = req.body.CPF;
-    const endereço    = req.body.endereço;
-    const estado    = req.body.estado;
-    const numero      = req.body.numero;
+function cadastrarProduto(req, resp){
+    const codigo         = req.body.codigo;
+    const descricao      = req.body.preco_custo;
+    const preco_custo    = req.body.preco_custo;
+    const preco_venda    = req.body.preco_venda;
+    const validade       = req.body.validade;
+    const estoque        = req.body.estoque;
+    const fabricante     = req.body.fabricante;
 
-    if (nome && sobrenome && CPF &&  endereço && estado &&  numero){
+    if (codigo  && descricao && preco_custo  && preco_venda   && validade &&  estoque && fabricante){
        
 
-        const cliente = {nome, sobrenome, CPF, endereço, estado, numero};
+        const Produto = {codigo,descricao,preco_custo,preco_venda,validade,estoque,fabricante};
 
 
-        listaClientes.push(cliente);
+        listaProduto.push(Produto);
     
 
     resp.write(`
@@ -141,33 +131,34 @@ function cadastrarCliente(req, resp){
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Sobrenome</th>
-                        <th scope="col">CPF</th>
-                        <th scope="col">endereço</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">numero</th>
+                        <th scope="col">codigo</th>
+                        <th scope="col">descrição</th>
+                        <th scope="col">preço de custo</th>
+                        <th scope="col">preço de venda</th>
+                        <th scope="col">validade</th>
+                        <th scope="col">estoque</th>
+                        <th scope="col">fabricante</th>
                     </tr>
                 </thead>
                 <tbody>`);
 
-                for (var i = 0; i < listaClientes.length; i++){
+                for (var i = 0; i < listaProduto.length; i++){
                     resp.write(`<tr>
-                                    <td>${listaClientes[i].nome}</td>
-                                    <td>${listaClientes[i].sobrenome}</td>
-                                    <td>${listaClientes[i].CPF}</td>
-                                    <td>${listaClientes[i].endereço}</td>
-                                    <td>${listaClientes[i].estado}</td>
-                                    <td>${listaClientes[i].numero}</td>
+                                    <td>${listaProduto[i].codigo}</td>
+                                    <td>${listaProduto[i].descricao}</td>
+                                    <td>${listaProduto[i].preco_custo}</td>
+                                    <td>${listaProduto[i].preco_venda}</td>
+                                    <td>${listaProduto[i].validade}</td>
+                                    <td>${listaProduto[i].estoque}</td>
+                                    <td>${listaProduto[i].fabricante}</td>
                                 </tr>
                         `);
                 }
 
     resp.write(`</tbody> 
             </table>
-            <a class="btn btn-primary" href="/cadastrarCliente">Continuar Cadastrando</a>
+            <button type="submit">Cadastrar Produto</button>
             </body>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         </html>
             `);
 
@@ -176,138 +167,118 @@ function cadastrarCliente(req, resp){
     else
     {
 
-        const estados = {
-            "AC": "Acre",
-            "AL": "Alagoas",
-            "AP": "Amapá",
-            "AM": "Amazonas",
-            "BA": "Bahia",
-            "CE": "Ceará",
-            "DF": "Distrito Federal",
-            "ES": "Espírito Santo",
-            "GO": "Goiás",
-            "MA": "Maranhão",
-            "MT": "Mato Grosso",
-            "MS": "Mato Grosso do Sul",
-            "MG": "Minas Gerais",
-            "PA": "Pará",
-            "PB": "Paraíba",
-            "PR": "Paraná",
-            "PE": "Pernambuco",
-            "PI": "Piauí",
-            "RJ": "Rio de Janeiro",
-            "RN": "Rio Grande do Norte",
-            "RS": "Rio Grande do Sul",
-            "RO": "Rondônia",
-            "RR": "Roraima",
-            "SC": "Santa Catarina",
-            "SP": "São Paulo",
-            "SE": "Sergipe",
-            "TO": "Tocantins"
-        };
+        resp.write(`
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Página Principal</title>
+        </head>
+        <body>
+            <h2>Sistema de Cadastro de Produtos</h2>
+            <p>Último Acesso: <span>{{lastLogin}}</span></p>
         
+            <h3>Cadastrar Produto</h3>
+            <form action="/cadastro" method="POST">
+                <label for="codigo">Código de Barras:</label>
+                <input type="text" id="codigo" name="codigo"  value="${codigo}" ><br>
 
-        resp.write(`
-            <html>
-                <head>
-                    <title>Cadastro</title>
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-                    <meta charset="utf-8">
-                </head>
-                <body>
-                    <div class="container text-center">
-                        <h1 class="mb-5">Cadastro</h1>
-                        <form method="POST" action="/cadastrarCliente" class="border p-3 row g-3" novalidate>
-                            <div class="col-md-4">
-                                <label for="nome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome"  placeholder="Digite seu nome" value="${nome}">
         `);
-        if (!nome){
+        if (!codigo){
             resp.write(`
                 <div>
-                    <span><p class="text-danger">Você deve informar o nome do cliente</p></span>
-                </div>
-                `);
-        }
-        resp.write(`</div>
-                        <div class="col-md-4">
-                        <label for="sobrenome" class="form-label">Sobrenome</label>
-                        <input type="text" class="form-control" id="sobrenome" name="sobrenome" value="${sobrenome}">`);
-        if (!sobrenome){
-            resp.write(`
-                <div>
-                    <span><p class="text-danger">Você deve informar o sobrenome do cliente</p></span>
+                    <span><p class="text-danger"> informar o codigo</p></span>
                 </div>
                 `);
         }
         resp.write(`
-            </div>
-                <div class="col-md-4">
-                    <label for="CPF" class="form-label">CPF</label>
-                    <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" class="form-control" id="CPF" name="CPF" value="${CPF}">
+                       <label for="descricao">Descrição:</label>
+                        <input type="text" id="descricao" name="descricao"   value="${descricao}" ><br>
+                
+        `);
+        if (!descricao){
+            resp.write(`
+                <div>
+                    <span><p class="text-danger">informe a descrição</p></span>
+                </div>
+                `);
+        }
+        resp.write(`
+                <label for="preco_custo">Preço de Custo:</label>
+                <input type="text" id="preco_custo" name="preco_custo"   value="${preco_custo}"><br>
+
 
             `);
-        if (!CPF){
+        if (!preco_custo){
             resp.write(`
                 <div>
-                    <span><p class="text-danger">Você deve informar o CPF do cliente</p></span>
+                    <span><p class="text-danger">nforme o preço do produto</p></span>
                 </div>
                 `);
         }
         resp.write(`
-                    </div>
-                </div>  
-            <div class="col-md-6">
-                <label for="endereço" class="form-label">Endereço</label>
-                <input type="text" class="form-control" id="endereço" name="endereço" value="${endereço}">
+                <label for="preco_venda">Preço de Venda:</label>
+                <input type="text" id="preco_venda" name="preco_venda" value="${preco_venda}" ><br>
+
             `);
 
-        if (!endereço){
+        if (!preco_venda){
             resp.write(`
                 <div>
-                    <span><p class="text-danger">Informe o endereço do cliente</p></span>
+                    <span><p class="text-danger">informe o preço de venda</p></span>
                 </div>
                 `);
         }
         resp.write(`
-            </div>
-            <div class="col-md-3">
-                <label for="estado" class="form-label">UF</label>
-                <select class="form-select" id="estado" name="estado">`);
-        for (let [sigla, nomeEstado] of Object.entries(estados)){
-            if (sigla == estado){
-                resp.write(`<option selected value="${sigla}">${nomeEstado}</option>`);
-            }
-            else{
-                resp.write(`<option value="${sigla}">${nomeEstado}</option>`);
-            }
-            
-        }
+          <label for="validade">Data de Validade:</label>
+          <input type="date" id="validade" name="validade" value="${validade}" ><br>
+
+       `);
+       if (!validade){
         resp.write(`
-                </select>
+            <div>
+                <span><p class="text-danger">informe a validade</p></span>
             </div>
-            <div class="col-md-3">
-                <label for="numero" class="form-label">Numero</label>
-                <input type="text" class="form-control" id="numero" name="numero" value="${numero}">
             `);
-        if (!numero){
-            resp.write(`
-                <div>
-                    <span><p class="text-danger">Informe o numero do cliente</p></span>
-                </div>
-                `);
+
+         resp.write(`
+           
+         <label for="estoque">Estoque:</label>
+         <input type="number" id="estoque" name="estoque"   value="${estoque}"><br>
+  
+         `);
+         if (!estoque){
+          resp.write(`
+              <div>
+                  <span><p class="text-danger">informe o estoque</p></span>
+              </div>
+              `);
+         }
+         resp.write(`
+                <label for="fabricante">Fabricante:</label>
+                <input type="text" id="fabricante" name="fabricante" value="${fabricante}"><br>
+        
+         
+         `);
+         if (!fabricante){
+          resp.write(`
+              <div>
+                  <span><p class="text-danger">informe Oo fabricante</p></span>
+              </div>
+              `);
+         }
+
+
+
         }
         resp.write(`
             </div>
         <div class="col-12">
-            <button class="btn btn-primary" type="submit">Cadastrar</button>
+        <button type="submit">Cadastrar Produto</button>
         </div>
         </form>
     </div>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </html> `);
 
     } 
@@ -317,8 +288,8 @@ function cadastrarCliente(req, resp){
 }
 
 app.get('/', menuView);
-app.get('/cadastrarCliente', cadastroClienteView); 
-app.post('/cadastrarCliente',cadastrarCliente);
+app.get('/cadastrarProduto', cadastroProdutoView); 
+app.post('/cadastrarProduto',cadastrarProduto);
 
 app.listen(porta, host, () => {
     console.log(`Servidor iniciado e em execução no endereço http://${host}:${porta}/`);
