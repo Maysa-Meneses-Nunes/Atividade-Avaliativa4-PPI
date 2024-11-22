@@ -1,0 +1,25 @@
+{
+  "name": "atividade3-ppi",
+  "version": "1.0.0",
+  "description": "Processamento de requisições do tipo POST com validação dos dados do formulário.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maysa-Meneses-Nunes/Atividade3-PPI.git"
+  },
+  "author": "maysa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maysa-Meneses-Nunes/Atividade3-PPI/issues"
+  },
+  "homepage": "https://github.com/Maysa-Meneses-Nunes/Atividade3-PPI#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7"
+  }
+}
